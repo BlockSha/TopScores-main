@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello TopScoresController!{% endblock %}
+
+{% block body %}
+
+{{form(formListJeux)}}
+<div class="row">
+    <div class="main">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h1>Le podium du mois de {{ "now"|date("F")|capitalize }} pour le jeu {{ jeu.name }}</h1>
+            </div>
+        </div>
+
+        <div class="row justify-content-center mt-4">
+            <div class="position-relative" style="display: inline-block;">
+                <img src="{{ asset('img/Winner podium 3d vector illustration.jpg') }}" alt="podium" class="img-fluid">
+
+                <!-- 1er place - centre -->
+                <div style="position: absolute; top: 35%; left: 50%; transform: translate(-50%, -50%); font-weight: bold; color: black;">
+                    {% if first is not null %}
+                        {{ first.user.pseudo }}
+                    {% else %}
+                        Aucun 1er
+                    {% endif %}
+                </div>
+
+                <div style="position: absolute; top: 47%; left: 31%; transform: translate(-50%, -50%); font-weight: bold; color: black;">
+                    {% if third is not null %}
+                        {{ third.user.pseudo }}
+                    {% else %}
+                        Aucun 3e
+                    {% endif %}
+                </div>
+
+                <div style="position: absolute; top: 40%; left: 70%; transform: translate(-50%, -50%); font-weight: bold; color: black;">
+                    {% if second is not null %}
+                        {{ second.user.pseudo }}
+                    {% else %}
+                        Aucun 2e
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+
+        <h2>Leaderboard</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Ranking</th>
+                    <th scope="col">Pseudo</th>
+                    <th scope="col">Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for score in scores %}
+                <tr>
+                    <th>#{{ loop.index }}</th>
+                    <td>{{ score.user.pseudo }}</td>
+                    <td>{{ score.score }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
